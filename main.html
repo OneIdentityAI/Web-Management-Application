@@ -1,0 +1,1033 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="icon" type="image/png" href="images/favicon/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="images/favicon/favicon-16x16.png" sizes="16x16" />
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800,900" rel="stylesheet"> 
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- Slick -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <!-- Animations -->
+    <link href="css/animate.css" rel="stylesheet">
+    <!-- Main CSS -->
+    <link href="css/style.css" rel="stylesheet">
+    <title>One Identity - Connection</title>
+    <style>
+        table, th, td 
+        {
+            white-space: nowrap;
+        }
+    </style>
+  </head>
+  <body class="page page-profile">
+    <div id="loading-ajax" style="display:none"></div>
+    <nav id="main-nav" class="navbar navbar-expand-lg navbar-light">
+      <div class="container">
+        <a class="navbar-brand logo" href="/endpoint_did.html"><img src="images/one-identity-logo-developers-portal.png"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" style="color:#008ED1" href="/main.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/schema.html">Schema</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/credential.html">Credential</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/message.html">Message</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/did.html">Did</a>
+            </li>
+			      <li class="nav-item">
+              <a class="nav-link" href="https://doc.1id.ai/">Docs</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="javascript:signOut()">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav><!-- #main-nav -->
+    <div class="notification-bar mt-4">
+      <div class="container">
+        <img src="images/icon-info-grey.png" style="width: 18px;"><strong class="ml-1 mr-4"></strong> <span id="text_endpoint_did"></span>
+      </div>
+    </div>
+    <div id="section-my-profile" class="section pt-5 pb-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h2 class="font-weight-bold">Home</h2>
+            <p class="mb-2">List of connection established with other users and entities</p>
+          </div>
+        </div>
+        <div class="row mt-5">
+          <div class="col-12 mt-4">
+            <div class="table-responsive mb-5">
+              <table class="table" id="table_data">
+                <thead>
+                  <tr>
+                    <th>Detail</th>
+                    <th>Operation</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- #section-my-profile -->
+    <div id="footer-2" class="pt-5 pb-5">
+      <div class="container">
+        <div class="row"> 
+          <div class="col-12 col-lg-3 text-center text-lg-left">
+            <a class="navbar-brand logo" href="#"><img style="max-width: 250px;" class="img-responsive" src="images/one-identity-logo-developers-portal.png"></a>
+          </div>
+          <div class="col-12 col-lg-4 text-center text-lg-left mt-4 mb-4 mt-lg-0 mb-lg-0 align-self-center">
+            Copyright 2019 One Identity, all rights reserved
+          </div>
+          <div class="col-12 col-lg-5 social-media text-center text-lg-right align-self-center">
+            <a href="https://t.me/oneidai"><img src="images/icon-telegram.png"></a>
+            <a href="https://github.com/OneIdentityAI"><img src="images/icon-github.png"></a>
+            <a href="#"><img src="images/icon-medium.png"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- The Modal -->
+    <div class="modal" id="modal_select_credential">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Select available credential</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="col-12 mt-4">
+                    <div class="table-responsive mb-5">
+                      <table class="table" id="table_data_credential">
+                        <thead>
+                          <tr>
+                            <th>Detail</th>
+                            <th>Operation</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- The Modal -->
+    <div class="modal" id="modal_select_credential_request">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Select credential request to issue credential with</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="col-12 mt-4">
+                    <div class="table-responsive mb-5">
+                      <table class="table" id="table_data_credential_request">
+                        <thead>
+                          <tr>
+                            <th>Prover DID/Cred Def Id</th>
+                            <th>Operation</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- The Modal -->
+    <div class="modal" id="modal_select_proof_offer">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Select to verify and accept proof offer</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <!-- Modal body -->
+          <div class="modal-body">
+              <div class="col-12 mt-4">
+                  <div class="table-responsive mb-5">
+                    <table class="table" id="table_data_proof_offer">
+                      <thead>
+                        <tr>
+                          <th>Detail</th>
+                          <th>Operation</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+          </div>
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="modal" id="modal_select_proof_request">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Select to issue proof offer to proof request</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <!-- Modal body -->
+          <div class="modal-body">
+              <div class="col-12 mt-4">
+                  <div class="table-responsive mb-5">
+                    <table class="table" id="table_data_proof_request">
+                      <thead>
+                        <tr>
+                          <th>Detail</th>
+                          <th>Operation</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+          </div>
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- The Modal -->
+    <div class="modal" id="modal_select_accepted_proof">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">List of accepted proof</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <!-- Modal body -->
+          <div class="modal-body">
+              <div class="col-12 mt-4">
+                  <div class="table-responsive mb-5">
+                    <table class="table" id="table_data_accepted_proof">
+                      <thead>
+                        <tr>
+                          <th>Detail</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+          </div>
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="js/waypoints.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="js/config.js"></script>
+    <script>
+      var connectionArray = [];
+      var messageArray = [];
+      var proofArray = [];
+      
+        if(localStorage.getItem("sign_in_id") !== null && localStorage.getItem("sign_in_id") !== "" &&
+          localStorage.getItem("token") !== null && localStorage.getItem("token") !== "")
+        {
+          $("#text_endpoint_did").text("Endpoint DID : " + localStorage.getItem("endpoint_did"));
+          listConnection();
+        }
+        else
+        {
+          window.location.href = "/index.html";
+        }
+
+        function listConnection()
+        {
+          $("#loading-ajax").show();
+          $.ajax({
+            type: 'POST',
+            url: listConnectionUrl,
+            contentType: "application/json",
+            dataType: "json",
+            processData: false,
+            data:
+            JSON.stringify({
+              token : localStorage.getItem("token") === null?"":localStorage.getItem("token")
+            }),
+						headers: {
+							"Authorization": "Bearer " + apikey,
+						},
+            success: function(response)
+            {
+              $("#loading-ajax").hide();
+              console.log(response)
+              var status = "";
+              var message = "";
+              var error = "";
+              if(response.hasOwnProperty("error"))
+                error = response.error;
+              if(error != "")
+              {
+                Swal.fire(
+                  response.error.type,
+                  response.error.message,
+                  'error'
+                );
+                return;
+              }
+              if(response.hasOwnProperty("status"))
+                status = response.status;
+              if(response.hasOwnProperty("message"))
+                message = response.message;
+              if(status === "200")
+              {
+                connectionArray = [];
+                messageArray = [];
+                proofArray = [];
+                for(var i = 0; i < response.data.length; i++)
+                {
+                  connectionArray.push(response.data[i]);
+                }
+                listMessage();
+              }
+            }
+          });
+        }
+
+        function listMessage()
+        {
+          $("#loading-ajax").show();
+          $.ajax({
+            type: 'POST',
+            url: listMessageUrl,
+            contentType: "application/json",
+            dataType: "json",
+            processData: false,
+            data:
+            JSON.stringify({
+              token : localStorage.getItem("token") === null?"":localStorage.getItem("token"),
+              type:""
+            }),
+						headers: {
+							"Authorization": "Bearer " + apikey,
+						},
+            success: function(response)
+            {
+              $("#loading-ajax").hide();
+              console.log(response)
+              var status = "";
+              var message = "";
+              var error = "";
+              if(response.hasOwnProperty("error"))
+                error = response.error;
+              if(error != "")
+              {
+                Swal.fire(
+                  response.error.type,
+                  response.error.message,
+                  'error'
+                );
+                return;
+              }
+              if(response.hasOwnProperty("status"))
+                status = response.status;
+              if(response.hasOwnProperty("message"))
+                message = response.message;
+              if(status === "200")
+              {
+                for(var i = 0; i < response.data.length; i++)
+                {
+                  messageArray.push(response.data[i]);
+                }
+                listProof();
+              }
+            }
+          });
+        }
+
+        function viewGenericDetail(index)
+        {
+          var genericDetail;
+          genericDetail = {
+            "title":"Connection Detail",
+            "subtitle":"",
+            "data":[
+              {
+                "name":"Connection Name",
+                "value":connectionArray[index].name
+              },
+              {
+                "name":"Company Name",
+                "value":connectionArray[index].company_name
+              },
+              {
+                "name":"User Name",
+                "value": connectionArray[index].first_name + " " + connectionArray[index].last_name
+              },
+              {
+                "name":"Wallet Name",
+                "value":connectionArray[index].wallet_name
+              },
+              {
+                "name":"My DID",
+                "value":connectionArray[index].my_did
+              },
+              {
+                "name":"Their DID",
+                "value":connectionArray[index].their_did
+              },
+              {
+                "name":"Their Endpoint DID",
+                "value":connectionArray[index].their_endpoint_did
+              },
+              {
+                "name":"Their Endpoint Verkey",
+                "value":connectionArray[index].their_endpoint_verkey
+              }
+            ]
+          }
+        
+          localStorage.generic_detail = JSON.stringify(genericDetail);
+          window.open(genericDetailUrl, '_blank');
+        }
+
+        function viewProofDetail(index, index2)
+        {
+          genericDetail =
+          {
+              "title":"Proof Detail",
+              "subtitle":"",
+              "data":[
+              ]
+          }
+          genericDetail.data.push(
+          {
+            "name":"Proof Request Nonce",
+            "value": verifiedyProofArray[index][index2].proof_request.nonce
+          });
+          genericDetail.data.push(
+          {
+            "name":"Proof Request Name",
+            "value": verifiedyProofArray[index][index2].proof_request.name
+          });
+          genericDetail.data.push(
+          {
+            "name":"Proof Request Version",
+            "value": verifiedyProofArray[index][index2].proof_request.version
+          });
+          for(var i = 0; i < verifiedyProofArray[index][index2].proof_offer.length; i++)
+          {
+            var finalName = verifiedyProofArray[index][index2].proof_offer[i].attribute_name;
+            if(verifiedyProofArray[index][index2].proof_offer[i].attribute_schema_id != "")
+              finalName += "    from " + verifiedyProofArray[index][index2].proof_offer[i].attribute_schema_id.split(":")[2] + " (" + verifiedyProofArray[index][index2].proof_offer[i].attribute_schema_id.split(":")[3] + ")"
+            genericDetail.data.push(
+            {
+             "name":"Attribute: " + finalName,
+              "value":verifiedyProofArray[index][index2].proof_offer[i].attribute_value
+            });
+          }
+          localStorage.generic_detail = JSON.stringify(genericDetail);
+          window.open(genericDetailUrl, '_blank');
+        }
+
+        function viewAcceptedProof(index)
+        {
+          $('#modal_select_accepted_proof').modal('show');
+          
+          var table = $("#table_data_accepted_proof tbody");
+          table.empty();
+          for(var i = 0; i < verifiedyProofArray[index].length; i++)
+          {
+            table.append(`<tr><td class="align-middle">` + verifiedyProofArray[index][i].proof_request.name + ` version: ` + verifiedyProofArray[index][i].proof_request.version + `</td><td class="align-middle"><button class="btn-blue" style="white-space: nowrap;text-align: center;" onclick="viewProofDetail(` + index + `,` + i + `)">View Detail</button></td></tr>`);
+          } 
+        }
+
+        var credentailRequestArray = [];
+        var proofOfferArray = [];
+        var verifiedyProofArray = [];
+        var proofRequestArray = [];
+        function listProof()
+        {
+          $("#loading-ajax").show();
+          $.ajax({
+            type: 'POST',
+            url: listProofUrl,
+            contentType: "application/json",
+            dataType: "json",
+            processData: false,
+            data:
+            JSON.stringify({
+              token : localStorage.getItem("token") === null?"":localStorage.getItem("token")
+            }),
+						headers: {
+							"Authorization": "Bearer " + apikey,
+						},
+            success: function(response)
+            {
+              $("#loading-ajax").hide();
+              console.log(response);
+              var status = "";
+              var message = "";
+              var error = "";
+              if(response.hasOwnProperty("error"))
+                error = response.error;
+              if(error != "")
+              {
+                Swal.fire(
+                  response.error.type,
+                  response.error.message,
+                  'error'
+                );
+                return;
+              }
+              if(response.hasOwnProperty("status"))
+                status = response.status;
+              if(response.hasOwnProperty("message"))
+                message = response.message;
+              if(status === "200")
+              {
+                for(var i = 0; i < response.data.length; i++)
+                {
+                  proofArray.push(response.data[i]);
+                }
+
+                var table = $("#table_data tbody");
+                table.empty();
+                for(var i = 0; i < connectionArray.length; i++)
+                {
+                  var totalCredentialRequest = 0;
+                  var arrayOfCredential = [];
+                  var arrayOfProofOffer = [];
+                  var arrayOfVerifiedProof = [];
+                  var totalProofOffer = 0
+                  var arrayOfProofRequest = [];
+                  var totalProofRequest = 0
+
+                  var firstName = "";
+                  var lastName = "";
+                  var companyName = "";
+                  var walletName = "";
+                  for(var j = 0; j < messageArray.length; j++)
+                  {
+                    if(messageArray[j].message.type === "MSG_TYPE_CREDENTIAL_REQUEST" )
+                    {
+                      console.log("Their DID:" + connectionArray[i].their_did);
+                      console.log("Message Sender DID:" + messageArray[j].message.sender_did);
+                      if(connectionArray[i].their_did === messageArray[j].message.sender_did)
+                      {
+                        totalCredentialRequest++;
+                        arrayOfCredential.push(messageArray[j]);
+                      }
+                    }
+                    
+                    if(messageArray[j].message.type === "MSG_TYPE_PROOF_OFFER" )
+                    {
+                      if(connectionArray[i].their_did === messageArray[j].message.sender_did)
+                      {
+                        totalProofOffer++;
+                        arrayOfProofOffer.push(messageArray[j]);
+                      }
+                    }
+
+                    if(messageArray[j].message.type === "MSG_TYPE_PROOF_REQUEST" )
+                    {
+                      if(connectionArray[i].their_did === messageArray[j].message.sender_did)
+                      {
+                        totalProofRequest++;
+                        arrayOfProofRequest.push(messageArray[j]);
+                      }
+                    }
+                  }
+
+                  
+                  for(var j = 0; j < response.data.length; j++)
+                    {
+                      if(connectionArray[i].their_did === response.data[j].sender_did)
+                      {
+                        if(response.data[j].proof_request.name == connectProfileExchange)
+                        {
+                          firstName = response.data[j].proof_offer[0].attribute_value;
+                          lastName = response.data[j].proof_offer[1].attribute_value;
+                          companyName = response.data[j].proof_offer[2].attribute_value;
+                          walletName = response.data[j].proof_offer[3].attribute_value;
+                        }
+                        arrayOfVerifiedProof.push(response.data[j]);
+                      }
+                    }
+                  credentailRequestArray.push(arrayOfCredential);
+                  proofOfferArray.push(arrayOfProofOffer);
+                  verifiedyProofArray.push(arrayOfVerifiedProof);
+                  proofRequestArray.push(arrayOfProofRequest);
+                  var credentialRequestButton = totalCredentialRequest > 0?`<img title="View Credential Request" src="images/buttons/new_proof_request.png" style="width:60px;height:auto;margin-right:5px" onclick="viewCredentialRequest('` + i + `')"/>`:``;
+                  
+                  var verifyAndAcceptProofOfferButton = totalProofOffer > 0?`<img title="View Proof Offer" src="images/buttons/new_proof_request.png" style="width:60px;height:auto;margin-right:5px" onclick="viewProofOffer('` + i + `')"/>`:``;
+                  
+                  var proofRequestButton = totalProofRequest > 0?`<img title="View Proof Request" src="images/buttons/send_proof_request.png" style="width:60px;height:auto;margin-right:5px" onclick="viewProofRequest('` + i + `')"/>`:``;
+
+                  var userName = firstName + " " + lastName;
+                  var companyName = companyName;
+                  var walletName = walletName;
+                  userName = userName.trim() == ""?"Unknown":userName;
+                  companyName = companyName == ""?"Unknown":companyName;
+                  walletName = walletName == ""?"Unknown":walletName;
+                  table.append(`<tr><td class="align-middle">` + connectionArray[i].name + `<br/>Connect To:<br/>` + userName + ` from ` + companyName + `<br/>Wallet name: ` + walletName + `<td class="align-middle"><img title="View Credential Detail" src="images/buttons/view_cred_def.png" style="width:60px;height:auto;margin-right:5px" onclick="viewGenericDetail(` + i + `)"/><img title="Send Message" src="images/buttons/send_message.png" style="width:60px;height:auto;margin-right:5px" onclick="sendMessage('` + connectionArray[i].their_did + `')"/><img title="Select Credential" src="images/buttons/create_credential_offer.png" style="width:60px;height:auto;margin-right:5px" onclick="selectCredential('` + connectionArray[i].my_did + `')"/>` + credentialRequestButton + verifyAndAcceptProofOfferButton + proofRequestButton + `<img title="Send Proof Request" src="images/buttons/send_proof_request.png" style="width:60px;height:auto;margin-right:5px" onclick="location.href='/proof_request.html?sender_did=` + connectionArray[i].my_did + `'"/><img title="View Accepted Proof" src="images/buttons/view_accepted_proof.png" style="width:60px;height:auto;margin-right:5px" onclick="viewAcceptedProof(` + i + `)"/></td></tr>`);
+                }
+              }
+            }
+          });
+        }
+
+        function viewCredentialRequest(index)
+        {
+          listCredentialRequest(index);
+          $('#modal_select_credential_request').modal('show');
+        }
+
+        function listCredentialRequest(index)
+        {
+          var table = $("#table_data_credential_request");
+          table.empty();
+            console.log(credentailRequestArray[index]);
+          for(var i = 0; i < credentailRequestArray[index].length; i++)
+          {
+            table.append(`<tr><td class="align-middle">` + credentailRequestArray[index][i].message.message.cred_offer.schema_id.split(":")[2] + `  Version: ` + credentailRequestArray[index][i].message.message.cred_offer.schema_id.split(":")[3] + `</td><td class="align-middle"><img title="Send Credential" src="images/buttons/send_credential_offer.png" style="width:60px;height:auto;margin-right:5px" onclick="location.href='/credential_issue.html?message_id=` + credentailRequestArray[index][i].message_id + `&schema_id=` + credentailRequestArray[index][i].message.message.cred_offer.schema_id + `&sender_did=` + connectionArray[index].my_did + `';"/></td></tr>`);
+          }
+        }
+
+        function viewProofOffer(index)
+        {
+          listProofOffer(index);
+          $('#modal_select_proof_offer').modal('show');
+        }
+
+        function listProofOffer(index)
+        {
+          var table = $("#table_data_proof_offer tbody");
+          table.empty();
+          for(var i = 0; i < proofOfferArray[index].length; i++)
+          {
+            var attributes = "";
+            for(var j = 0; j < proofOfferArray[index][i].message.message.proof_offer.length; j++)
+            {
+              var finalName = "" +proofOfferArray[index][i].message.message.proof_offer[j].attribute_name;
+              if(proofOfferArray[index][i].message.message.proof_offer[j].attribute_schema_id != "")
+                finalName += "    from " + proofOfferArray[index][i].message.message.proof_offer[j].attribute_schema_id.split(":")[2] + " (" + proofOfferArray[index][i].message.message.proof_offer[j].attribute_schema_id.split(":")[3] + ")";
+             
+                attributes += "Attribute: " + finalName + "<br/>" + proofOfferArray[index][i].message.message.proof_offer[j].attribute_value + "<br/><br/>";
+            }
+
+            table.append(`<tr><td class="align-middle"><b>` + proofOfferArray[index][i].message.message.proof_request.name + "  ver " + proofOfferArray[index][i].message.message.proof_request.version + "" + `</b><br/> ` + attributes + `</td><td class="align-middle"><img title="Verify And Accept Proof Request" src="images/buttons/verify_accept_proof.png" style="width:60px;height:auto;margin-right:5px" onclick="verifyAndAcceptProofOffer('` + proofOfferArray[index][i].message_id + `', '` + connectionArray[index].my_did + `');"/></td></tr>`);
+          }
+        }
+        
+        function viewProofRequest(index)
+        {
+          listProofRequest(index);
+          $('#modal_select_proof_request').modal('show');
+        }
+
+        function listProofRequest(index)
+        {
+          var table = $("#table_data_proof_request tbody");
+          table.empty();
+
+          var attributes = "";
+          for(var i = 0; i < proofRequestArray[index].length; i++)
+          {
+            for(var a = 0; a < 1000; a++)
+            {
+              if(proofRequestArray[index][i].message.message.proof_req['requested_attributes'].hasOwnProperty("attr" + a + "_referent"))
+              {		
+                var name = proofRequestArray[index][i].message.message.proof_req['requested_attributes']["attr" + a + "_referent"]['field'];
+                if(proofRequestArray[index][i].message.message.proof_req['requested_attributes']["attr" + a + "_referent"].hasOwnProperty("restrictions"))
+                { 
+                  var credDefId = proofRequestArray[index][i].message.message.proof_req['requested_attributes']["attr" + a + "_referent"]["restrictions"][0]["cred_def_id"]
+                  var schemaName = "";
+                  for(var j = 0; j < proofRequestArray[index][i].message.message.mapping.length; j++)
+                  {
+                    if(proofRequestArray[index][i].message.message.mapping[j]["cred_def_id"] == credDefId)
+                    {
+                      schemaName = proofRequestArray[index][i].message.message.mapping[j]["schema_id"];
+                    }
+                  }
+                  attributes += "Attribute " + a + " : " + name + "<br/>Request access to Schema" + schemaName.split(":")[2] + "  Version: " + schemaName.split(":")[3] + "<br/>";
+                }
+                else
+                {
+                  attributes += "Attribute " + a + " : " + name + "<br/>User Input" + "<br/>";
+                }
+              }
+            }
+
+            table.append(`<tr><td class="align-middle"><b>` +  proofRequestArray[index][i].message.message.proof_req.name + "    ver: " + proofRequestArray[index][i].message.message.proof_req.version + "" + `</b><br/> ` + attributes + `</td><td class="align-middle"><img title="Create proof request" src="images/buttons/send_proof_request.png" style="width:60px;height:auto;margin-right:5px" onclick="sendProofOffer(` + index + `, ` + i+ `, '` + connectionArray[index].my_did + `', '` + proofRequestArray[index][i].message_id + `');"/></td></tr>`);
+          }
+        }
+
+        function sendProofOffer(index, i, did, messageId)
+        {          
+          localStorage.proof_request_message_id = messageId;
+          localStorage.proof_request_did = did;
+          localStorage.proof_request_content = JSON.stringify(proofRequestArray[index][i].message.message);
+          window.open(proofOfferUrl, '_blank');
+          
+        }
+        
+        function selectCredential(did)
+        {
+          listCredentialDefinition(did);
+          $('#modal_select_credential').modal('show');
+        }
+
+        function listCredentialDefinition(did)
+        {
+          $("#loading-ajax").show();
+          $.ajax({
+            type: 'POST',
+            url: listCredentialDefinitionUrl,
+            contentType: "application/json",
+            dataType: "json",
+            processData: false,
+            data:
+            JSON.stringify({
+              token : localStorage.getItem("token") === null?"":localStorage.getItem("token")
+            }),
+						headers: {
+							"Authorization": "Bearer " + apikey,
+						},
+            success: function(response)
+            {
+              $("#loading-ajax").hide();
+              console.log(response)
+              var status = "";
+              var message = "";
+              var error = "";
+              if(response.hasOwnProperty("error"))
+                error = response.error;
+              if(error != "")
+              {
+                Swal.fire(
+                  response.error.type,
+                  response.error.message,
+                  'error'
+                );
+                return;
+              }
+              if(response.hasOwnProperty("status"))
+                status = response.status;
+              if(response.hasOwnProperty("message"))
+                message = response.message;
+              if(status === "200")
+              {
+                var table = $("#table_data_credential tbody");
+                table.empty();
+                for(var i = 0; i < response.data.length; i++)
+                {
+                  table.append(`<tr><td class="align-middle">` + response.data[i].schema_name + `<br/>Version: ` + response.data[i].schema_version + `<br/>Cred Def Id: ` + response.data[i].credDefId + `</td><td class="align-middle"><img title="Send Offer" src="images/buttons/send_credential_offer.png" style="width:60px;height:auto;margin-right:5px" onclick="sendOffer('` + response.data[i].credDefId + `', '` + did + `')"/></td></tr>`);
+                }
+              }
+            }
+          });
+        }
+        
+        function verifyAndAcceptProofOffer(messageId, did)
+        {
+          $("#loading-ajax").show();
+          $.ajax({
+            type: 'POST',
+            url: veifyAndAcceptProofOfferUrl,
+            contentType: "application/json",
+            dataType: "json",
+            processData: false,
+            data:
+            JSON.stringify({
+              token : localStorage.getItem("token") === null?"":localStorage.getItem("token"),
+              sender_did : did,
+              message_id : messageId
+            }),
+						headers: {
+							"Authorization": "Bearer " + apikey,
+						},
+            success: function(response)
+            {
+              $("#loading-ajax").hide();
+              console.log(response)
+              var status = "";
+              var message = "";
+              var error = "";
+              if(response.hasOwnProperty("error"))
+                error = response.error;
+              if(error != "")
+              {
+                Swal.fire(
+                  response.error.type,
+                  response.error.message,
+                  'error'
+                );
+                return;
+              }
+              if(response.hasOwnProperty("status"))
+                status = response.status;
+              if(response.hasOwnProperty("message"))
+                message = response.message;
+              if(status === "200")
+              {
+                listConnection();
+               $('#modal_select_proof_offer').modal('hide');
+                Swal.fire(
+                  'Success',
+                  message,
+                  'success'
+                );
+              }
+              else
+              {
+               $('#modal_select_proof_offer').modal('hide');
+                Swal.fire(
+                  'Fail',
+                  message,
+                  'error'
+                );
+              }
+            }
+          });
+        }
+
+        function sendOffer(credDefId, did)
+        {
+          $("#loading-ajax").show();
+          Swal.fire({
+            title: 'Confirm sending offer',
+            text: "Confirm sending credential offer to this connection?",
+            showCancelButton: true,
+            confirmButtonText: 'Send'
+          }).then((result) => {
+            if (result.value) {
+              $.ajax({
+                type: 'POST',
+                url: sendCredentialOfferUrl,
+                contentType: "application/json",
+                dataType: "json",
+                processData: false,
+                data:
+                JSON.stringify({
+                  token : localStorage.getItem("token") === null?"":localStorage.getItem("token"),
+                  sender_did : did,
+                  cred_def_id : credDefId
+                }),
+                headers: {
+                  "Authorization": "Bearer " + apikey,
+                },
+                success: function(response)
+                {
+                  $("#loading-ajax").hide();
+                  console.log(response)
+                  var status = "";
+                  var message = "";
+                  var error = "";
+                  if(response.hasOwnProperty("error"))
+                    error = response.error;
+                  if(error != "")
+                  {
+                    Swal.fire(
+                      response.error.type,
+                      response.error.message,
+                      'error'
+                    );
+                    return;
+                  }
+                  if(response.hasOwnProperty("status"))
+                    status = response.status;
+                  if(response.hasOwnProperty("message"))
+                    message = response.message;
+                  if(status === "200")
+                  {
+                   $('#modal_select_credential').modal('hide');
+                    Swal.fire(
+                      'Success',
+                      message,
+                      'success'
+                    )
+                  }
+                }
+              });
+            }
+          })
+        }
+
+        function sendMessage(did)
+        {
+          Swal.fire({
+            title: 'Send Message',
+            text: "Send an encrypted plain text message to this connection",
+            input: 'text',
+            showCancelButton: true,
+            confirmButtonText: 'Send'
+          }).then((result) => {
+            if (result.value) {
+              $("#loading-ajax").show();
+              $.ajax({
+                type: 'POST',
+                url: sendMessageUrl,
+                contentType: "application/json",
+                dataType: "json",
+                processData: false,
+                data:
+                JSON.stringify({
+                  token : localStorage.getItem("token") === null?"":localStorage.getItem("token"),
+                  recipient_did : did,
+                  message_content : result.value
+                }),
+                headers: {
+                  "Authorization": "Bearer " + apikey,
+                },
+                success: function(response)
+                {
+                  $("#loading-ajax").hide();
+                  console.log(response)
+                  var status = "";
+                  var message = "";
+                  var error = "";
+                  if(response.hasOwnProperty("error"))
+                    error = response.error;
+                  if(error != "")
+                  {
+                    Swal.fire(
+                      response.error.type,
+                      response.error.message,
+                      'error'
+                    );
+                    return;
+                  }
+                  if(response.hasOwnProperty("status"))
+                    status = response.status;
+                  if(response.hasOwnProperty("message"))
+                    message = response.message;
+                  if(status === "200")
+                  {
+                    Swal.fire(
+                      'Message Sent!',
+                      'Your message sent successfully',
+                      'success'
+                    )
+                  }
+                }
+              });
+            }
+          })
+        }
+        
+        function signOut()
+        {
+          $("#loading-ajax").show();
+          $.ajax({
+            type: 'POST',
+            url: webSignOutUrl,
+            contentType: "application/json",
+            dataType: "json",
+            processData: false,
+            data:
+            JSON.stringify({
+              id : localStorage.getItem("sign_in_id") === null?"":localStorage.getItem("sign_in_id"),
+              token : localStorage.getItem("token") === null?"":localStorage.getItem("token")
+            }),
+						headers: {
+							"Authorization": "Bearer " + apikey,
+						},
+            success: function(response)
+            {
+              $("#loading-ajax").hide();
+              console.log(response)
+              var status = "";
+              var message = "";
+              var error = "";
+              if(response.hasOwnProperty("error"))
+                error = response.error;
+              if(error != "")
+              {
+                Swal.fire(
+                  response.error.type,
+                  response.error.message,
+                  'error'
+                );
+                return;
+              }
+              if(response.hasOwnProperty("status"))
+                status = response.status;
+              if(response.hasOwnProperty("message"))
+                message = response.message;
+              if(status === "200")
+              {
+                localStorage.clear();
+                window.location.href = "/index.html";
+              }
+            }
+          });
+        }
+      </script>
+  </body>
+</html>

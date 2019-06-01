@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="icon" type="image/png" href="images/favicon/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="images/favicon/favicon-16x16.png" sizes="16x16" />
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800,900" rel="stylesheet"> 
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Slick -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <!-- Animations -->
+    <link href="css/animate.css" rel="stylesheet">
+    <!-- Main CSS -->
+    <link href="css/style.css" rel="stylesheet">
+    <title>One Identity - Corporate Portal</title>
+    <style>
+        table, th, td 
+        {
+            white-space: nowrap;
+        }
+    </style>
+  </head>
+  <body class="page page-developer">
+    <div id="loading-ajax" style="display:none"></div>
+    <nav id="main-nav" class="navbar navbar-expand-lg navbar-light">
+      <div class="container">
+        <a class="navbar-brand logo" href="#"><img src="images/one-identity-logo-developers-portal.png"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="https://doc.1id.ai/">Docs</a>
+            </li>
+            <li class="nav-item language-selector">
+              <span class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                  ENGLISH
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                  <li><a href="home.html" class="disabled">ENGLISH</a></li>
+                  <!--<li><a href="home-cn.html" >中文</a></li>-->
+                </ul>
+              </span>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://1id.ai/">MAIN SITE</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://dev.1id.ai/" style="color:#008ed1;">Developer</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://network.1ai.ai/" style="color:#008ed1;">Network</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav><!-- #main-nav -->
+    <div class="notification-bar mt-4">
+      <div class="container">
+          <marquee behavior="scroll" direction="left" id="marquee_news"></marquee>
+      </div>
+    </div>
+    <div id="section-sign-in" class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-lg-8 mb-5">
+            <h1 class="mb-3">Welcome to the <strong>One Identity Corporate Portal</strong></h1>
+            <h2 style="color: #dddddd;"><strong>Access Corporate Portal To Create Schema & Credential,
+                Issue Digital Credential & Exchange Proof</strong></h2>
+          </div>
+          <div class="col-12 col-lg-4">
+            <div id="qrcode" style="width:250px;height:250px"></div><br/><br/><br/>
+            <h3>Scan QR Code To Login
+                Using One Identity Mobile App</h3>
+          </div>
+        </div>
+      </div>
+    </div><!-- #section-sign-in -->
+    <div id="footer-2" class="pt-5 pb-5">
+      <div class="container">
+        <div class="row"> 
+          <div class="col-12 col-lg-3 text-center text-lg-left">
+            <a class="navbar-brand logo" href="#"><img style="max-width: 250px;" class="img-responsive" src="images/one-identity-logo-developers-portal.png"></a>
+          </div>
+          <div class="col-12 col-lg-4 text-center text-lg-left mt-4 mb-4 mt-lg-0 mb-lg-0 align-self-center">
+            Copyright 2019 One Identity, all rights reserved
+          </div>
+          <div class="col-12 col-lg-5 social-media text-center text-lg-right align-self-center">
+            <a href="https://t.me/oneidai"><img src="images/icon-telegram.png"></a>
+            <a href="https://github.com/OneIdentityAI"><img src="images/icon-github.png"></a>
+            <a href="#"><img src="images/icon-medium.png"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="js/waypoints.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <script src="lib/davidshimjs-qrcodejs/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="js/config.js"></script>
+    <script>
+      var qrcode = new QRCode(document.getElementById("qrcode"),
+      {
+        width : 300,
+        height : 300
+      });
+
+      if (typeof(Storage) !== "undefined")
+      {
+        if(localStorage.getItem("sign_in_id") !== null && localStorage.getItem("sign_in_id") !== "" &&
+        localStorage.getItem("token") !== null && localStorage.getItem("token") !== "")
+        {
+          viewIdentityWallet();
+        }
+        else
+        {
+          retrieveNews();
+          initiateSignIn();
+          window.setInterval(function(){
+                  initiateSignIn();
+                }, 5000);
+        }
+      }
+      else
+      {
+        Swal.fire(
+          'Unsupported Browser',
+          'Sorry, your browser does not support Web Storage',
+          'warning'
+        )
+      }
+
+      function initiateSignIn()
+      {
+        $.ajax({
+          type: 'POST',
+          url: initiateWebSignInUrl,
+          contentType: "application/json",
+          dataType: "json",
+          processData: false,
+          data:
+          JSON.stringify({
+            id : localStorage.getItem("sign_in_id") === null?"":localStorage.getItem("sign_in_id"),
+          }),
+					headers: {
+						"Authorization": "Bearer " + apikey,
+					},
+          success: function(response)
+          {
+            console.log(response)
+            var status = "";
+            var message = "";
+            var error = "";
+            if(response.hasOwnProperty("error"))
+              error = response.error;
+            if(error != "")
+            {
+              Swal.fire(
+                response.error.type,
+                response.error.message,
+                'error'
+              );
+              return;
+            }
+            if(response.hasOwnProperty("status"))
+              status = response.status;
+            if(response.hasOwnProperty("message")) 
+              message = response.message;
+            if(response.hasOwnProperty("data"))
+            {
+              localStorage.setItem("token", response.data.token);
+              localStorage.setItem("sign_in_id", response.data.id);
+              qrcode.makeCode(response.data.id);
+              if(response.data.token === "")
+              {
+              }
+              else
+              {
+                setTimeout(viewIdentityWallet, 1000)
+              }
+            }
+          }
+        });
+      }
+        
+        function viewIdentityWallet()
+        {
+          $("#loading-ajax").show();
+          $.ajax({
+            type: 'POST',
+            url: viewIdentityWalletUrl,
+            contentType: "application/json",
+            dataType: "json",
+            processData: false,
+            data:
+            JSON.stringify({
+              token : localStorage.getItem("token") === null?"":localStorage.getItem("token")
+            }),
+						headers: {
+							"Authorization": "Bearer " + apikey,
+						},
+            success: function(response)
+            {
+              $("#loading-ajax").hide();
+              console.log(response)
+              var status = "";
+              var message = "";
+              var error = "";
+              if(response.hasOwnProperty("error"))
+                error = response.error;
+              if(error != "")
+              {
+                
+              }
+              if(response.hasOwnProperty("status"))
+                status = response.status;
+              if(response.hasOwnProperty("message"))
+                message = response.message;
+              if(response.hasOwnProperty("data"))
+              {
+                localStorage.setItem("wallet_name", response.data.wallet_name);
+                localStorage.setItem("api_key", response.data.api_key);
+                localStorage.setItem("created_at", response.data.created_at);
+                localStorage.setItem("endpoint_did", response.data.endpoint_did);
+                window.location.href = "/main.html";
+              }
+            }
+          });
+        }
+        
+        function retrieveNews()
+        {
+          $.ajax({
+            type: 'POST',
+            url: retrieveNewsUrl,
+            contentType: "application/json",
+            dataType: "json",
+            processData: false,
+            data:{
+              "Type" : "1",
+              "LanguageID": "e"
+            },
+						headers: {
+							"Authorization": newsApiKey,
+						},
+            success: function(response)
+            {
+              console.log(response)
+              var aggregatedTitle = "";
+              for(var i = 0; i < response.length; i++)
+              {
+                aggregatedTitle += "                              " + response[i].NewsTitle;
+              }
+              $("#marquee_news").html(aggregatedTitle);
+            }
+          });
+        }
+    </script>
+  </body>
+</html>

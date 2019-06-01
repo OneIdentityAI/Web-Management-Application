@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="icon" type="image/png" href="images/favicon/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="images/favicon/favicon-16x16.png" sizes="16x16" />
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800,900" rel="stylesheet"> 
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- Slick -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <!-- Animations -->
+    <link href="css/animate.css" rel="stylesheet">
+    <!-- Main CSS -->
+    <link href="css/style.css" rel="stylesheet">
+    <title>One Identity - DID Create</title>
+    <style>
+        table, th, td 
+        {
+            white-space: nowrap;
+        }
+    </style>
+  </head>
+  <body class="page page-profile">
+    <div id="loading-ajax" style="display:none"></div>
+    <nav id="main-nav" class="navbar navbar-expand-lg navbar-light">
+      <div class="container">
+        <a class="navbar-brand logo" href="/endpoint_did.html"><img src="images/one-identity-logo-developers-portal.png"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/main.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" style="color:#008ED1" href="/schema.html">Schema</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/credential.html">Credential</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/message.html">Message</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/did.html">Did</a>
+            </li>
+			      <li class="nav-item">
+              <a class="nav-link" href="https://doc.1id.ai/">Docs</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="javascript:signOut()">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav><!-- #main-nav -->
+    <div class="notification-bar mt-4">
+      <div class="container">
+        <img src="images/icon-info-grey.png" style="width: 18px;"><strong class="ml-1 mr-4"></strong> <span id="text_endpoint_did"></span>
+      </div>
+    </div>
+    <div id="section-my-profile" class="section pt-5 pb-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h2 class="font-weight-bold">Create DID</h2>
+            <p class="mb-2">Please enter the following information</p>
+          </div>
+        </div>
+        <div class="row mt-5">
+          <div class="col-12 col-lg-8 mt-4 mt-lg-0">
+            <form method="post" action="" class="form-type-2">
+              <div class="form-group">
+                <div class="text-highlight">Did Name</div>
+                <input type="text" id="input_did_name">
+              </div>
+              <div class="mt-5 text-right">
+                <input type="button" value="Create" class="btn-dark w-lg-50 p-3 pr-5 pl-5" onclick="createDid()">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div><!-- #section-my-profile -->
+    <div id="footer-2" class="pt-5 pb-5">
+      <div class="container">
+        <div class="row"> 
+          <div class="col-12 col-lg-3 text-center text-lg-left">
+            <a class="navbar-brand logo" href="#"><img style="max-width: 250px;" class="img-responsive" src="images/one-identity-logo-developers-portal.png"></a>
+          </div>
+          <div class="col-12 col-lg-4 text-center text-lg-left mt-4 mb-4 mt-lg-0 mb-lg-0 align-self-center">
+            Copyright 2019 One Identity, all rights reserved
+          </div>
+          <div class="col-12 col-lg-5 social-media text-center text-lg-right align-self-center">
+            <a href="https://t.me/oneidai"><img src="images/icon-telegram.png"></a>
+            <a href="https://github.com/OneIdentityAI"><img src="images/icon-github.png"></a>
+            <a href="#"><img src="images/icon-medium.png"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="js/waypoints.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="js/config.js"></script>
+    <script>
+      if(localStorage.getItem("sign_in_id") !== null && localStorage.getItem("sign_in_id") !== "" &&
+          localStorage.getItem("token") !== null && localStorage.getItem("token") !== "")
+        {
+          $("#text_endpoint_did").text("Endpoint DID : " + localStorage.getItem("endpoint_did"));
+        }
+        else
+        {
+          window.location.href = "/index.html";
+        }
+
+        function createDid()
+        {
+          $("#loading-ajax").show();
+          $.ajax({
+            type: 'POST',
+            url: createDidUrl,
+            contentType: "application/json",
+            dataType: "json",
+            processData: false,
+            data:JSON.stringify(
+              {
+                token : localStorage.getItem("token") === null?"":localStorage.getItem("token"),
+                name:$("#input_did_name").val()
+              }
+            ),
+						headers: {
+							"Authorization": "Bearer " + apikey,
+						},
+            success: function(response)
+            {
+              $("#loading-ajax").hide();
+              console.log(response)
+              var status = "";
+              var message = "";
+              var error = "";
+              if(response.hasOwnProperty("error"))
+                error = response.error;
+              if(error != "")
+              {
+                Swal.fire(
+                  response.error.type,
+                  response.error.message,
+                  'error'
+                );
+                return;
+              }
+              if(response.hasOwnProperty("status"))
+                status = response.status;
+              if(response.hasOwnProperty("message"))
+                message = response.message;
+              if(status === "200")
+              {
+                Swal.fire({
+                  title: 'DID Created',
+                  text: "DID successfully created",
+                  type: 'success',
+                }).then((result) => {
+                  if (result.value) {
+                    window.location.href = "/did.html";
+                  }
+                })
+              }
+            }
+          });
+        }
+        
+        function signOut()
+        {
+          $("#loading-ajax").show();
+          $.ajax({
+            type: 'POST',
+            url: webSignOutUrl,
+            contentType: "application/json",
+            dataType: "json",
+            processData: false,
+            data:
+            JSON.stringify({
+              id : localStorage.getItem("sign_in_id") === null?"":localStorage.getItem("sign_in_id"),
+              token : localStorage.getItem("token") === null?"":localStorage.getItem("token")
+            }),
+						headers: {
+							"Authorization": "Bearer " + apikey,
+						},
+            success: function(response)
+            {
+              $("#loading-ajax").hide();
+              console.log(response)
+              var status = "";
+              var message = "";
+              var error = "";
+              if(response.hasOwnProperty("error"))
+                error = response.error;
+              if(error != "")
+              {
+                Swal.fire(
+                  response.error.type,
+                  response.error.message,
+                  'error'
+                );
+                return;
+              }
+              if(response.hasOwnProperty("status"))
+                status = response.status;
+              if(response.hasOwnProperty("message"))
+                message = response.message;
+              if(status === "200")
+              {
+                localStorage.clear();
+                window.location.href = "/index.html";
+              }
+            }
+          });
+        }
+      </script>
+  </body>
+</html>
