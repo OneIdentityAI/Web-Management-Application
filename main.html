@@ -574,7 +574,7 @@
                   var walletName = "";
                   for(var j = 0; j < messageArray.length; j++)
                   {
-                    if(messageArray[j].message.type === "MSG_TYPE_CREDENTIAL_REQUEST" )
+                    if(messageArray[j].type === "MSG_TYPE_CREDENTIAL_REQUEST" )
                     {
                       console.log("Their DID:" + connectionArray[i].their_did);
                       console.log("Message Sender DID:" + messageArray[j].message.sender_did);
@@ -585,7 +585,7 @@
                       }
                     }
                     
-                    if(messageArray[j].message.type === "MSG_TYPE_PROOF_OFFER" )
+                    if(messageArray[j].type === "MSG_TYPE_PROOF_OFFER" )
                     {
                       if(connectionArray[i].their_did === messageArray[j].message.sender_did)
                       {
@@ -594,7 +594,7 @@
                       }
                     }
 
-                    if(messageArray[j].message.type === "MSG_TYPE_PROOF_REQUEST" )
+                    if(messageArray[j].type === "MSG_TYPE_PROOF_REQUEST" )
                     {
                       if(connectionArray[i].their_did === messageArray[j].message.sender_did)
                       {
@@ -617,6 +617,7 @@
                           walletName = response.data[j].proof_offer[3].attribute_value;
                         }
                         arrayOfVerifiedProof.push(response.data[j]);
+                        console.log(response.data[j]);
                       }
                     }
                   credentailRequestArray.push(arrayOfCredential);
@@ -655,7 +656,7 @@
             console.log(credentailRequestArray[index]);
           for(var i = 0; i < credentailRequestArray[index].length; i++)
           {
-            table.append(`<tr><td class="align-middle">` + credentailRequestArray[index][i].message.message.cred_offer.schema_id.split(":")[2] + `  Version: ` + credentailRequestArray[index][i].message.message.cred_offer.schema_id.split(":")[3] + `</td><td class="align-middle"><img title="Send Credential" src="images/buttons/send_credential_offer.png" style="width:60px;height:auto;margin-right:5px" onclick="location.href='/credential_issue.html?message_id=` + credentailRequestArray[index][i].message_id + `&schema_id=` + credentailRequestArray[index][i].message.message.cred_offer.schema_id + `&sender_did=` + connectionArray[index].my_did + `';"/></td></tr>`);
+            table.append(`<tr><td class="align-middle">` + credentailRequestArray[index][i].message.cred_offer.schema_id.split(":")[2] + `  Version: ` + credentailRequestArray[index][i].message.cred_offer.schema_id.split(":")[3] + `</td><td class="align-middle"><img title="Send Credential" src="images/buttons/send_credential_offer.png" style="width:60px;height:auto;margin-right:5px" onclick="location.href='/credential_issue.html?message_id=` + credentailRequestArray[index][i].message_id + `&schema_id=` + credentailRequestArray[index][i].message.cred_offer.schema_id + `&sender_did=` + connectionArray[index].my_did + `';"/></td></tr>`);
           }
         }
 
@@ -672,16 +673,16 @@
           for(var i = 0; i < proofOfferArray[index].length; i++)
           {
             var attributes = "";
-            for(var j = 0; j < proofOfferArray[index][i].message.message.proof_offer.length; j++)
+            for(var j = 0; j < proofOfferArray[index][i].message.proof_offer.length; j++)
             {
-              var finalName = "" +proofOfferArray[index][i].message.message.proof_offer[j].attribute_name;
-              if(proofOfferArray[index][i].message.message.proof_offer[j].attribute_schema_id != "")
-                finalName += "    from " + proofOfferArray[index][i].message.message.proof_offer[j].attribute_schema_id.split(":")[2] + " (" + proofOfferArray[index][i].message.message.proof_offer[j].attribute_schema_id.split(":")[3] + ")";
+              var finalName = "" +proofOfferArray[index][i].message.proof_offer[j].attribute_name;
+              if(proofOfferArray[index][i].message.proof_offer[j].attribute_schema_id != "")
+                finalName += "    from " + proofOfferArray[index][i].message.proof_offer[j].attribute_schema_id.split(":")[2] + " (" + proofOfferArray[index][i].message.proof_offer[j].attribute_schema_id.split(":")[3] + ")";
              
-                attributes += "Attribute: " + finalName + "<br/>" + proofOfferArray[index][i].message.message.proof_offer[j].attribute_value + "<br/><br/>";
+                attributes += "Attribute: " + finalName + "<br/>" + proofOfferArray[index][i].message.proof_offer[j].attribute_value + "<br/><br/>";
             }
 
-            table.append(`<tr><td class="align-middle"><b>` + proofOfferArray[index][i].message.message.proof_request.name + "  ver " + proofOfferArray[index][i].message.message.proof_request.version + "" + `</b><br/> ` + attributes + `</td><td class="align-middle"><img title="Verify And Accept Proof Request" src="images/buttons/verify_accept_proof.png" style="width:60px;height:auto;margin-right:5px" onclick="verifyAndAcceptProofOffer('` + proofOfferArray[index][i].message_id + `', '` + connectionArray[index].my_did + `');"/></td></tr>`);
+            table.append(`<tr><td class="align-middle"><b>` + proofOfferArray[index][i].message.proof_request.name + "  ver " + proofOfferArray[index][i].message.proof_request.version + "" + `</b><br/> ` + attributes + `</td><td class="align-middle"><img title="Verify And Accept Proof Request" src="images/buttons/verify_accept_proof.png" style="width:60px;height:auto;margin-right:5px" onclick="verifyAndAcceptProofOffer('` + proofOfferArray[index][i].message_id + `', '` + connectionArray[index].my_did + `');"/></td></tr>`);
           }
         }
         
@@ -701,18 +702,18 @@
           {
             for(var a = 0; a < 1000; a++)
             {
-              if(proofRequestArray[index][i].message.message.proof_req['requested_attributes'].hasOwnProperty("attr" + a + "_referent"))
+              if(proofRequestArray[index][i].message.proof_request['requested_attributes'].hasOwnProperty("attr" + a + "_referent"))
               {		
-                var name = proofRequestArray[index][i].message.message.proof_req['requested_attributes']["attr" + a + "_referent"]['field'];
-                if(proofRequestArray[index][i].message.message.proof_req['requested_attributes']["attr" + a + "_referent"].hasOwnProperty("restrictions"))
+                var name = proofRequestArray[index][i].message.proof_request['requested_attributes']["attr" + a + "_referent"]['field'];
+                if(proofRequestArray[index][i].message.proof_request['requested_attributes']["attr" + a + "_referent"].hasOwnProperty("restrictions"))
                 { 
-                  var credDefId = proofRequestArray[index][i].message.message.proof_req['requested_attributes']["attr" + a + "_referent"]["restrictions"][0]["cred_def_id"]
+                  var credDefId = proofRequestArray[index][i].message.proof_request['requested_attributes']["attr" + a + "_referent"]["restrictions"][0]["cred_def_id"]
                   var schemaName = "";
-                  for(var j = 0; j < proofRequestArray[index][i].message.message.mapping.length; j++)
+                  for(var j = 0; j < proofRequestArray[index][i].message.mapping.length; j++)
                   {
-                    if(proofRequestArray[index][i].message.message.mapping[j]["cred_def_id"] == credDefId)
+                    if(proofRequestArray[index][i].message.mapping[j]["cred_def_id"] == credDefId)
                     {
-                      schemaName = proofRequestArray[index][i].message.message.mapping[j]["schema_id"];
+                      schemaName = proofRequestArray[index][i].message.mapping[j]["schema_id"];
                     }
                   }
                   attributes += "Attribute " + a + " : " + name + "<br/>Request access to Schema" + schemaName.split(":")[2] + "  Version: " + schemaName.split(":")[3] + "<br/>";
@@ -724,7 +725,7 @@
               }
             }
 
-            table.append(`<tr><td class="align-middle"><b>` +  proofRequestArray[index][i].message.message.proof_req.name + "    ver: " + proofRequestArray[index][i].message.message.proof_req.version + "" + `</b><br/> ` + attributes + `</td><td class="align-middle"><img title="Create proof request" src="images/buttons/send_proof_request.png" style="width:60px;height:auto;margin-right:5px" onclick="sendProofOffer(` + index + `, ` + i+ `, '` + connectionArray[index].my_did + `', '` + proofRequestArray[index][i].message_id + `');"/></td></tr>`);
+            table.append(`<tr><td class="align-middle"><b>` +  proofRequestArray[index][i].message.proof_request.name + "    ver: " + proofRequestArray[index][i].message.proof_request.version + "" + `</b><br/> ` + attributes + `</td><td class="align-middle"><img title="Create proof request" src="images/buttons/send_proof_request.png" style="width:60px;height:auto;margin-right:5px" onclick="sendProofOffer(` + index + `, ` + i+ `, '` + connectionArray[index].my_did + `', '` + proofRequestArray[index][i].message_id + `');"/></td></tr>`);
           }
         }
 
@@ -732,7 +733,7 @@
         {          
           localStorage.proof_request_message_id = messageId;
           localStorage.proof_request_did = did;
-          localStorage.proof_request_content = JSON.stringify(proofRequestArray[index][i].message.message);
+          localStorage.proof_request_content = JSON.stringify(proofRequestArray[index][i].message);
           window.open(proofOfferUrl, '_blank');
           
         }
@@ -787,7 +788,7 @@
                 table.empty();
                 for(var i = 0; i < response.data.length; i++)
                 {
-                  table.append(`<tr><td class="align-middle">` + response.data[i].schema_name + `<br/>Version: ` + response.data[i].schema_version + `<br/>Cred Def Id: ` + response.data[i].credDefId + `</td><td class="align-middle"><img title="Send Offer" src="images/buttons/send_credential_offer.png" style="width:60px;height:auto;margin-right:5px" onclick="sendOffer('` + response.data[i].credDefId + `', '` + did + `')"/></td></tr>`);
+                  table.append(`<tr><td class="align-middle">` + response.data[i].schema_name + `<br/>Version: ` + response.data[i].schema_version + `<br/>Cred Def Id: ` + response.data[i].cred_def_id + `</td><td class="align-middle"><img title="Send Offer" src="images/buttons/send_credential_offer.png" style="width:60px;height:auto;margin-right:5px" onclick="sendOffer('` + response.data[i].cred_def_id + `', '` + did + `')"/></td></tr>`);
                 }
               }
             }

@@ -194,9 +194,9 @@
 
                   
                   var jsonData = JSON.parse(localStorage.proof_request_content);
-                  var proofReq = jsonData.proof_req;
+                  var proofReq = jsonData.proof_request;
                   var mapping = jsonData.mapping;
-                  var attributesObject = jsonData.proof_req.requested_attributes;
+                  var attributesObject = jsonData.proof_request.requested_attributes;
                   for(var a = 0; a < 1000; a++)
                   {
                     if(attributesObject.hasOwnProperty("attr" + a + "_referent"))
@@ -241,7 +241,7 @@
           var messageId = localStorage.proof_request_message_id
           var did = localStorage.proof_request_did;
 
-          var messageObject = proofRequestContent.proof_req;
+          var messageObject = proofRequestContent.proof_request;
           var requestAttributesObject = messageObject.requested_attributes;
 
           var newAttributesObject = {};

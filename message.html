@@ -277,7 +277,7 @@
                             [datetime.getHours().padLeft(),
                             datetime.getMinutes().padLeft(),
                             datetime.getSeconds().padLeft()].join(':');
-                  if(response.data[i].message.type === "MSG_TYPE_CONN_REQUEST")
+                  if(response.data[i].type === "MSG_TYPE_CONN_REQUEST")
                   {
                     var userName = "";
                     var companyName = "";
@@ -286,9 +286,9 @@
                     companyName = companyName == ""?"Unknown":companyName;
                     walletName = walletName == ""?"Unknown":walletName;
                     table.append(`<tr><td class="align-middle">` + userName + " from " + companyName + "<br/>Wallet Name: " + walletName + "<br/>Datetime: " + dformat + `</td><td class="align-middle">New Connection Request</td><td class="align-middle"><img title="View Message" src="images/buttons/view_message.png" style="width:60px;height:auto;margin-right:5px" onclick="viewGenericDetail(` + i + `)"/><img title="Accept Connection" src="images/buttons/accept_connection.png" style="width:60px;height:auto;margin-right:5px" onclick="acceptConnection('` + response.data[i].message_id + `')"/><img title="Delete Message" src="images/buttons/delete_message.png" style="width:60px;height:auto;margin-right:5px" onclick="deleteMessage('` + response.data[i].message_id + `')"/></td></tr>`);
-                    dataArray.push(response.data[i].message.message);
+                    dataArray.push(response.data[i].message);
                   }
-                  else if(response.data[i].message.type === "MSG_TYPE_SECURE_SEND")
+                  else if(response.data[i].type === "MSG_TYPE_SECURE_SEND")
                   {                    
                     var firstName = "";
                     var lastName = "";
@@ -320,7 +320,7 @@
                     table.append(`<tr><td class="align-middle">Message From:<br/>` + userName + " from " + companyName + "<br/>Wallet Name: " + walletName + "<br/>Message: " + response.data[i].message.message + "<br/>Datetime: " + dformat + `</td><td class="align-middle">Secure Chat Message</td><td class="align-middle"><img title="View Message" src="images/buttons/view_message.png" style="width:60px;height:auto;margin-right:5px" onclick="viewGenericDetail(` + currentIndex + `)"/><img title="Send Message" src="images/buttons/send_message.png" style="width:60px;height:auto;margin-right:5px" onclick="sendMessage('` + connectionArray[index].my_did + `')"/><img title="Delete Message" src="images/buttons/delete_message.png" style="width:60px;height:auto;margin-right:5px" onclick="deleteMessage('` + response.data[i].message_id + `')"/></td></tr>`);
                     dataArray.push(response.data[i].message);
                   }
-                  else if(response.data[i].message.type === "MSG_TYPE_CREDENTIAL_REQUEST")
+                  else if(response.data[i].type === "MSG_TYPE_CREDENTIAL_REQUEST")
                   {
                     var firstName = "";
                     var lastName = "";
@@ -352,7 +352,7 @@
                     table.append(`<tr><td class="align-middle">Message From:<br/>` + userName + " from " + companyName + "<br/>Wallet Name: " + walletName + "<br/>Datetime: " + dformat + `</td><td class="align-middle">New Credential Request<br/><b><a href="/main.html">Go to connection page to issue credential</a></b></td><td class="align-middle"><img title="Delete Message" src="images/buttons/delete_message.png" style="width:60px;height:auto;margin-right:5px" onclick="deleteMessage('` + response.data[i].message_id + `')"/></td></tr>`);
                     dataArray.push(response.data[i].message);
                   }
-                  else if(response.data[i].message.type === "MSG_TYPE_PROOF_OFFER")
+                  else if(response.data[i].type === "MSG_TYPE_PROOF_OFFER")
                   {
                     var firstName = "";
                     var lastName = "";
@@ -385,7 +385,7 @@
                     table.append(`<tr><td class="align-middle">Message From:<br/>` + userName + " from " + companyName + "<br/>Wallet Name: " + walletName + "<br/>Datetime: " + dformat + `</td><td class="align-middle">New Proof Offer<br/><b><a href="/main.html">Go to connection page to verify and accept this proof offer</a></b></td><td class="align-middle"><img title="View Accepted Proof" src="images/buttons/view_accepted_proof.png" style="width:60px;height:auto;margin-right:5px" onclick="viewGenericDetail(` + currentIndex + `)"/><img title="Delete Message" src="images/buttons/delete_message.png" style="width:60px;height:auto;margin-right:5px" onclick="deleteMessage('` + response.data[i].message_id + `')"/></td></tr>`);
                     dataArray.push(response.data[i].message);
                   }
-                  else if(response.data[i].message.type === "MSG_TYPE_PROOF_REQUEST")
+                  else if(response.data[i].type === "MSG_TYPE_PROOF_REQUEST")
                   {
                     var firstName = "";
                     var lastName = "";
@@ -684,7 +684,7 @@
                           [datetime.getHours().padLeft(),
                           datetime.getMinutes().padLeft(),
                           datetime.getSeconds().padLeft()].join(':');
-          if(responseData.data[index].message.type === "MSG_TYPE_CONN_REQUEST")
+          if(responseData.data[index].type === "MSG_TYPE_CONN_REQUEST")
           {
             genericDetail = {
               "title":"New Connection Detail",
@@ -700,19 +700,19 @@
                 },
                 {
                   "name":"DID",
-                  "value":responseData.data[index].message.message.did
+                  "value":responseData.data[index].message.did
                 },
                 {
                   "name":"Endpoint DID",
-                  "value":responseData.data[index].message.message.endpoint_did
+                  "value":responseData.data[index].message.endpoint_did
                 },
                 {
                   "name":"Endpoint Verkey",
-                  "value":responseData.data[index].message.message.endpoint_verkey
+                  "value":responseData.data[index].message.endpoint_verkey
                 },
                 {
                   "name":"Message Nonce",
-                  "value":responseData.data[index].message.message.nonce
+                  "value":responseData.data[index].message.nonce
                 },
                 {
                   "name":"Datetime",
@@ -721,7 +721,7 @@
               ]
             }
           }
-          else if(responseData.data[index].message.type === "MSG_TYPE_SECURE_SEND")
+          else if(responseData.data[index].type === "MSG_TYPE_SECURE_SEND")
           {
             var firstName = "";
             var lastName = "";
@@ -804,7 +804,7 @@
                   "value":dformat
                 });
           }
-          else if(responseData.data[index].message.type === "MSG_TYPE_PROOF_OFFER")
+          else if(responseData.data[index].type === "MSG_TYPE_PROOF_OFFER")
           {
             var firstName = "";
             var lastName = "";
@@ -879,27 +879,27 @@
               genericDetail.data.push(
                   {
                     "name":"Proof Request Nonce",
-                    "value": responseData.data[index].message.message.proof_request.nonce
+                    "value": responseData.data[index].message.proof_request.nonce
                   });
               genericDetail.data.push(
                   {
                     "name":"Proof Request Name",
-                    "value": responseData.data[index].message.message.proof_request.name
+                    "value": responseData.data[index].message.proof_request.name
                   });
               genericDetail.data.push(
                   {
                     "name":"Proof Request Version",
-                    "value": responseData.data[index].message.message.proof_request.version
+                    "value": responseData.data[index].message.proof_request.version
                   });
-            for(var i = 0; i < responseData.data[index].message.message.proof_offer.length; i++)
+            for(var i = 0; i < responseData.data[index].message.proof_offer.length; i++)
             {
-              var finalName = responseData.data[index].message.message.proof_offer[i].attribute_name;
-              if(responseData.data[index].message.message.proof_offer[i].attribute_schema_id != "")
-                finalName += "    from " + responseData.data[index].message.message.proof_offer[i].attribute_schema_id.split(":")[2] + " (" + responseData.data[index].message.message.proof_offer[i].attribute_schema_id.split(":")[3] + ")"
+              var finalName = responseData.data[index].message.proof_offer[i].attribute_name;
+              if(responseData.data[index].message.proof_offer[i].attribute_schema_id != "")
+                finalName += "    from " + responseData.data[index].message.proof_offer[i].attribute_schema_id.split(":")[2] + " (" + responseData.data[index].message.proof_offer[i].attribute_schema_id.split(":")[3] + ")"
               genericDetail.data.push(
                   {
                     "name":"Attribute: " + finalName,
-                    "value": responseData.data[index].message.message.proof_offer[i].attribute_value
+                    "value": responseData.data[index].message.proof_offer[i].attribute_value
                   });
             }
             genericDetail.data.push(
@@ -908,7 +908,7 @@
                   "value":dformat
                 });
           }
-          else if(responseData.data[index].message.type === "MSG_TYPE_PROOF_REQUEST")
+          else if(responseData.data[index].type === "MSG_TYPE_PROOF_REQUEST")
           {
             var firstName = "";
             var lastName = "";
@@ -998,33 +998,33 @@
               genericDetail.data.push(
                   {
                     "name":"Proof Request Nonce",
-                    "value": responseData.data[index].message.message.proof_req.nonce
+                    "value": responseData.data[index].message.proof_request.nonce
                   });
               genericDetail.data.push(
                   {
                     "name":"Proof Request Name",
-                    "value": responseData.data[index].message.message.proof_req.name
+                    "value": responseData.data[index].message.proof_request.name
                   });
               genericDetail.data.push(
                   {
                     "name":"Proof Request Version",
-                    "value": responseData.data[index].message.message.proof_req.version
+                    "value": responseData.data[index].message.proof_request.version
                   });
 
               for(var a = 0; a < 1000; a++)
 							{
-								if(responseData.data[index].message.message.proof_req['requested_attributes'].hasOwnProperty("attr" + a + "_referent"))
+								if(responseData.data[index].message.proof_request['requested_attributes'].hasOwnProperty("attr" + a + "_referent"))
 								{		
-                  var name = responseData.data[index].message.message.proof_req['requested_attributes']["attr" + a + "_referent"]['field'];
-                  if(responseData.data[index].message.message.proof_req['requested_attributes']["attr" + a + "_referent"].hasOwnProperty("restrictions"))
+                  var name = responseData.data[index].message.proof_request['requested_attributes']["attr" + a + "_referent"]['field'];
+                  if(responseData.data[index].message.proof_request['requested_attributes']["attr" + a + "_referent"].hasOwnProperty("restrictions"))
                   { 
-                    var credDefId = responseData.data[index].message.message.proof_req['requested_attributes']["attr" + a + "_referent"]["restrictions"][0]["cred_def_id"]
+                    var credDefId = responseData.data[index].message.proof_request['requested_attributes']["attr" + a + "_referent"]["restrictions"][0]["cred_def_id"]
                     var schemaName = "";
-                    for(var j = 0; j < responseData.data[index].message.message.mapping.length; j++)
+                    for(var j = 0; j < responseData.data[index].message.mapping.length; j++)
                     {
-                      if(responseData.data[index].message.message.mapping[j]["cred_def_id"] == credDefId)
+                      if(responseData.data[index].message.mapping[j]["cred_def_id"] == credDefId)
                       {
-                        schemaName = responseData.data[index].message.message.mapping[j]["schema_id"];
+                        schemaName = responseData.data[index].message.mapping[j]["schema_id"];
                       }
                     }
                     genericDetail.data.push(
@@ -1043,15 +1043,15 @@
                   }
 								}
 							}
-            for(var i = 0; i < responseData.data[index].message.message.proof_req.length; i++)
+            for(var i = 0; i < responseData.data[index].message.proof_request.length; i++)
             {
-              var finalName = responseData.data[index].message.message.proof_offer[i].attribute_name;
-              if(responseData.data[index].message.message.proof_offer[i].attribute_schema_id != "")
-                finalName += "    from " + responseData.data[index].message.message.proof_offer[i].attribute_schema_id.split(":")[2] + " (" + responseData.data[index].message.message.proof_offer[i].attribute_schema_id.split(":")[3] + ")"
+              var finalName = responseData.data[index].message.proof_offer[i].attribute_name;
+              if(responseData.data[index].message.proof_offer[i].attribute_schema_id != "")
+                finalName += "    from " + responseData.data[index].message.proof_offer[i].attribute_schema_id.split(":")[2] + " (" + responseData.data[index].message.message.proof_offer[i].attribute_schema_id.split(":")[3] + ")"
               genericDetail.data.push(
                   {
                     "name":"Attribute: " + finalName,
-                    "value": responseData.data[index].message.message.proof_offer[i].attribute_value
+                    "value": responseData.data[index].message.proof_offer[i].attribute_value
                   });
             }
             genericDetail.data.push(
