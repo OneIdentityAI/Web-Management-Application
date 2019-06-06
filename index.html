@@ -129,10 +129,7 @@
         else
         {
           retrieveNews();
-          initiateSignIn();
-          window.setInterval(function(){
-                  initiateSignIn();
-                }, 5000);
+          initiateWebSignIn();
         }
       }
       else
@@ -144,7 +141,7 @@
         )
       }
 
-      function initiateSignIn()
+      function initiateWebSignIn()
       {
         $.ajax({
           type: 'POST',
@@ -180,16 +177,62 @@
               status = response.status;
             if(response.hasOwnProperty("message")) 
               message = response.message;
-            if(response.hasOwnProperty("data"))
+            if(response.hasOwnProperty("id"))
             {
-              localStorage.setItem("token", response.data.token);
-              localStorage.setItem("sign_in_id", response.data.id);
-              qrcode.makeCode(response.data.id);
-              if(response.data.token === "")
+              localStorage.setItem("sign_in_id", response.id);
+              qrcode.makeCode(response.id);
+              window.setInterval(function(){
+                checkWebSignInResult();
+              }, 5000);
+            }
+          }
+        });
+      }
+
+      function checkWebSignInResult()
+      {
+        $.ajax({
+          type: 'POST',
+          url: checkWebSignInResultUrl,
+          contentType: "application/json",
+          dataType: "json",
+          processData: false,
+          data:
+          JSON.stringify({
+            id : localStorage.getItem("sign_in_id") === null?"":localStorage.getItem("sign_in_id"),
+          }),
+					headers: {
+						"Authorization": "Bearer " + apikey,
+					},
+          success: function(response)
+          {
+            console.log(response)
+            var status = "";
+            var message = "";
+            var error = "";
+            if(response.hasOwnProperty("error"))
+              error = response.error;
+            if(error != "")
+            {
+              Swal.fire(
+                response.error.type,
+                response.error.message,
+                'error'
+              );
+              return;
+            }
+            if(response.hasOwnProperty("status"))
+              status = response.status;
+            if(response.hasOwnProperty("message")) 
+              message = response.message;
+            if(response.hasOwnProperty("token"))
+            {
+              if(response.token === "")
               {
               }
               else
               {
+                localStorage.setItem("token", response.token);
                 setTimeout(viewIdentityWallet, 1000)
               }
             }
@@ -197,76 +240,76 @@
         });
       }
         
-        function viewIdentityWallet()
-        {
-          $("#loading-ajax").show();
-          $.ajax({
-            type: 'POST',
-            url: viewIdentityWalletUrl,
-            contentType: "application/json",
-            dataType: "json",
-            processData: false,
-            data:
-            JSON.stringify({
-              token : localStorage.getItem("token") === null?"":localStorage.getItem("token")
-            }),
-						headers: {
-							"Authorization": "Bearer " + apikey,
-						},
-            success: function(response)
+      function viewIdentityWallet()
+      {
+        $("#loading-ajax").show();
+        $.ajax({
+          type: 'POST',
+          url: viewIdentityWalletUrl,
+          contentType: "application/json",
+          dataType: "json",
+          processData: false,
+          data:
+          JSON.stringify({
+            token : localStorage.getItem("token") === null?"":localStorage.getItem("token")
+          }),
+					headers: {
+						"Authorization": "Bearer " + apikey,
+					},
+          success: function(response)
+          {
+            $("#loading-ajax").hide();
+            console.log(response)
+            var status = "";
+            var message = "";
+            var error = "";
+            if(response.hasOwnProperty("error"))
+              error = response.error;
+            if(error != "")
             {
-              $("#loading-ajax").hide();
-              console.log(response)
-              var status = "";
-              var message = "";
-              var error = "";
-              if(response.hasOwnProperty("error"))
-                error = response.error;
-              if(error != "")
-              {
-                
-              }
-              if(response.hasOwnProperty("status"))
-                status = response.status;
-              if(response.hasOwnProperty("message"))
-                message = response.message;
-              if(response.hasOwnProperty("data"))
-              {
-                localStorage.setItem("wallet_name", response.data.wallet_name);
-                localStorage.setItem("api_key", response.data.api_key);
-                localStorage.setItem("created_at", response.data.created_at);
-                localStorage.setItem("endpoint_did", response.data.endpoint_did);
-                window.location.href = "/main.html";
-              }
+              
             }
-          });
-        }
+            if(response.hasOwnProperty("status"))
+              status = response.status;
+            if(response.hasOwnProperty("message"))
+              message = response.message;
+            if(response.hasOwnProperty("data"))
+            {
+              localStorage.setItem("wallet_name", response.data.wallet_name);
+              localStorage.setItem("api_key", response.data.api_key);
+              localStorage.setItem("created_at", response.data.created_at);
+              localStorage.setItem("endpoint_did", response.data.endpoint_did);
+              window.location.href = "/main.html";
+            }
+          }
+        });
+      }
         
-        function retrieveNews()
-        {
-          $.ajax({
-            type: 'POST',
-            url: retrieveNewsUrl,
-            data:{
-              "Type" : "1",
-              "LanguageID": "e"
-            },
-            processData: true,
-						headers: {
-							"APIKey": newsApiKey,
-						},
-            success: function(response)
+      function retrieveNews()
+      {
+        $.ajax({
+          type: 'POST',
+          url: retrieveNewsUrl,
+          data:{
+            "Type" : "1",
+            "LanguageID": "e"
+          },
+          processData: true,
+					headers: {
+						"APIKey": newsApiKey,
+					},
+          success: function(response)
+          {
+            console.log(response)
+            var aggregatedTitle = "";
+            for(var i = 0; i < response.length; i++)
             {
-              console.log(response)
-              var aggregatedTitle = "";
-              for(var i = 0; i < response.length; i++)
-              {
-                aggregatedTitle += "                              " + response[i].NewsTitle;
-              }
-              $("#marquee_news").html(aggregatedTitle);
+              aggregatedTitle += "                              " + response[i].NewsTitle;
             }
-          });
-        }
+            $("#marquee_news").html(aggregatedTitle);
+          }
+        });
+      }
     </script>
   </body>
 </html>
