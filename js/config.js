@@ -1,5 +1,5 @@
 var apikey = "36ecd86589e34f5fadbe9a59e4b3b377";
-var oneIdCredDefId = "Th7MpTaRZVRYnPiabds81Y:3:CL:6:TAG1"
+var oneIdCredDefId = "8CXxwinErn2oJiUt3XyKix:3:CL:182:TAG1"
 var connectProfileExchange = "ConnectionProfileExchange";
 var acknowledgeCredentialOfferAcceptanceUrl = "https://api.1id.ai/v2/acknowledge-credential-offer-acceptance";
 var createDidUrl = "https://api.1id.ai/v2/create-did";
